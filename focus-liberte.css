@@ -1,0 +1,684 @@
+/* ============================================================
+   FOCUS LIBERTÉ — FEUILLE DE STYLE
+   ------------------------------------------------------------
+   COMMENT MODIFIER CE FICHIER :
+   1. Toutes les couleurs, polices et tailles sont dans le bloc
+      ":root" juste en dessous. Change une valeur ici = ça se
+      répercute partout.
+   2. Les sections sont dans l'ordre de la page. Cherche le nom
+      de la section (ex : "HERO", "AGITATION") pour la retrouver.
+   3. Le responsive est géré avec "clamp(...)" : la taille bouge
+      automatiquement entre mobile et desktop. Tu peux garder
+      les clamp tels quels ou mettre une valeur fixe en px.
+   ============================================================ */
+
+
+/* ------------------------------------------------------------
+   1. VARIABLES (COULEURS / POLICES / TAILLES / ESPACEMENTS)
+   ------------------------------------------------------------ */
+:root {
+
+  /* --- Couleurs --- */
+  --cobalt: #3155FF;
+  --orange: #FF5A36;
+  --creme:  #F5F0E6;
+  --noir:   #111111;
+
+  /* Couleur de fond et de texte par défaut du site */
+  --fond:      var(--creme);
+  --texte:     var(--noir);
+
+  /* --- Polices --- */
+  --font-display: 'Anton', Impact, sans-serif;   /* Titres / impact */
+  --font-body:    'Inter', Arial, sans-serif;    /* Texte / lisibilité */
+  --font-hand:    'Caveat', cursive;             /* Annotations manuscrites */
+
+  /* --- Tailles typographiques (mobile -> desktop) --- */
+  --taille-hero:    clamp(3.25rem, 9vw,    7.5rem);   /* 52 -> 120 px */
+  --taille-h1:      clamp(3rem,    6.5vw,  5.5rem);   /* 48 -> 88 px  */
+  --taille-h2:      clamp(2.25rem, 5vw,    4rem);     /* 36 -> 64 px  */
+  --taille-h3:      clamp(1.75rem, 3vw,    2.5rem);   /* 28 -> 40 px  */
+  --taille-xxl:     clamp(2.75rem, 8vw,    7rem);     /* statements XXL */
+  --taille-body-lg: clamp(1.125rem, 1.4vw, 1.25rem);  /* 18 -> 20 px  */
+  --taille-body:    clamp(1rem,    1.2vw,  1.125rem); /* 16 -> 18 px  */
+  --taille-small:   .875rem;                          /* 14 px        */
+  --taille-hand:    clamp(1.125rem, 1.8vw, 1.75rem);  /* 18 -> 28 px  */
+
+  /* Interligne des gros titres (display). Modifie juste ce chiffre
+     pour aérer ou resserrer TOUS les titres d'un coup. */
+  --interligne-titres: 1.1;
+
+  /* Espacements de base (échelle de 8) */
+  --s1: 8px;
+  --s2: 16px;
+  --s3: 24px;
+  --s4: 32px;
+  --s5: 48px;
+  --s6: 64px;
+  --s7: 96px;
+  --s8: 128px;
+
+  /* Mise en page */
+  --largeur-max: 1440px;
+  --marge-laterale: clamp(20px, 4.5vw, 64px);
+  --largeur-texte: 680px; /* largeur max des paragraphes */
+
+  /* Divers */
+  --radius: 2px;
+  --transition: .2s ease;
+}
+
+
+/* ------------------------------------------------------------
+   2. BASE / RESET
+   ------------------------------------------------------------ */
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  background: var(--fond);
+  color: var(--texte);
+  font-family: var(--font-body);
+  font-size: var(--taille-body);
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, p, ul, figure, blockquote { margin: 0; }
+ul { padding: 0; list-style: none; }
+img { max-width: 100%; display: block; }
+
+a { color: inherit; }
+
+/* Couleur de surlignage personnalisée (remplace la couleur par défaut du navigateur) */
+::selection {
+  background: var(--orange);
+  color: var(--noir);
+}
+
+::-moz-selection {
+  background: var(--orange);
+  color: var(--noir);
+}
+
+
+/* ------------------------------------------------------------
+   3. MISE EN PAGE (conteneur + sections)
+   ------------------------------------------------------------ */
+.container {
+  max-width: var(--largeur-max);
+  margin-inline: auto;
+  padding-inline: var(--marge-laterale);
+}
+
+/* Rythme vertical : jouer sur ces 3 classes pour varier
+   l'espace entre les sections (évite l'effet "landing SaaS"). */
+.section          { padding-block: clamp(64px, 10vw, 128px); }
+.section--tight   { padding-block: clamp(48px, 7vw,   80px); }
+.section--air     { padding-block: clamp(80px, 14vw, 180px); }
+
+.section--noir    { background: var(--noir);   color: var(--creme); }
+.section--cobalt  { background: var(--cobalt); color: var(--creme); }
+.section--orange  { background: var(--orange); color: var(--noir); }
+
+/* Grille 12 colonnes (desktop) */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: var(--s3);
+}
+
+
+/* ------------------------------------------------------------
+   4. TYPOGRAPHIE UTILITAIRE
+   ------------------------------------------------------------ */
+/* Tous les titres "display" en Anton, majuscules, serrés */
+.display {
+  font-family: var(--font-display);
+  font-weight: 400;
+  text-transform: uppercase;
+  line-height: var(--interligne-titres);
+  letter-spacing: -.01em;
+}
+
+.hero-title { font-size: var(--taille-hero); }
+.h1         { font-size: var(--taille-h1); }
+.h2         { font-size: var(--taille-h2); }
+.h3         { font-size: var(--taille-h3); }
+.xxl        { font-size: var(--taille-xxl); }
+
+/* Mots mis en couleur (1-2 par bloc maximum) */
+.txt-cobalt { color: var(--cobalt); }
+.txt-orange { color: var(--orange); }
+
+/* Paragraphes : largeur limitée pour la lisibilité */
+.body-lg { font-size: var(--taille-body-lg); line-height: 1.5; }
+.prose   { max-width: var(--largeur-texte); }
+
+/* Espace au-dessus des paragraphes d'un même bloc */
+.prose-stack > * + * { margin-top: var(--s2); }
+
+
+/* ------------------------------------------------------------
+   5. LABEL (petit repère de section)
+   ------------------------------------------------------------ */
+.label {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s1);
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  margin-bottom: var(--s4);
+}
+
+/* Petite puce carrée colorée devant le label */
+.label::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  background: var(--orange);
+}
+
+.section--noir .label,
+.section--cobalt .label { color: var(--creme); }
+
+
+/* ------------------------------------------------------------
+   6. BOUTONS
+   ------------------------------------------------------------ */
+.btn {
+  display: inline-block;
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .02em;
+  text-decoration: none;
+  padding: 17px 26px;
+  border: 1px solid transparent;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: background var(--transition), color var(--transition), border-color var(--transition);
+}
+
+/* Bouton principal : cobalt -> orange au survol */
+.btn--primary { background: var(--cobalt); color: var(--creme); }
+.btn--primary:hover { background: var(--orange); color: var(--noir); }
+
+/* Bouton secondaire : contour noir (ou crème sur fond sombre) */
+.btn--ghost { background: transparent; border-color: currentColor; color: inherit; }
+.btn--ghost:hover { background: var(--noir); color: var(--creme); border-color: var(--noir); }
+
+.section--noir .btn--ghost:hover { background: var(--creme); color: var(--noir); border-color: var(--creme); }
+
+
+/* ------------------------------------------------------------
+   7. SIGNATURE / DIVIDER / ANNOTATION
+   ------------------------------------------------------------ */
+.signature {
+  font-family: var(--font-hand);
+  font-size: 18px;
+  line-height: 1;
+}
+
+/* Séparateur éditorial */
+.divider {
+  height: 1px;
+  width: 100%;
+  background: currentColor;
+  opacity: .35;
+  margin-block: var(--s6);
+}
+
+/* Annotation manuscrite : petite voix de Chris */
+.annotation {
+  font-family: var(--font-hand);
+  font-size: var(--taille-hand);
+  line-height: 1.15;
+  color: var(--noir);
+  max-width: 340px;
+}
+
+/* Variante légèrement inclinée (rupture contrôlée) */
+.annotation--tilt { transform: rotate(-2deg); }
+.annotation--cobalt { color: var(--cobalt); }
+.annotation--orange { color: var(--orange); }
+
+.section--noir .annotation,
+.section--cobalt .annotation { color: var(--creme); }
+
+
+/* ------------------------------------------------------------
+   8. HERO
+   ------------------------------------------------------------ */
+.hero { padding-block: clamp(56px, 9vw, 120px) clamp(64px, 10vw, 140px); }
+
+.hero .grid { align-items: center; }
+
+.hero-copy   { grid-column: 1 / 8; }
+.hero-visual { grid-column: 8 / 13; }
+
+.hero-title { margin-bottom: var(--s4); }
+
+.hero-body { margin-top: var(--s4); }
+
+.hero-annotation {
+  margin-top: var(--s3);
+  position: relative;
+}
+
+.hero-cta { margin-top: var(--s5); }
+
+.hero-photo {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  border-radius: var(--radius);
+}
+
+
+/* ------------------------------------------------------------
+   9. STATEMENT
+   ------------------------------------------------------------ */
+.statement { max-width: 1000px; }
+.statement--center { margin-inline: auto; text-align: center; }
+
+.statement .h1,
+.statement .xxl { margin-bottom: var(--s4); }
+
+/* Variante bloc couleur : un statement posé dans un aplat */
+.statement-block {
+  padding: clamp(40px, 6vw, 88px);
+  border-radius: var(--radius);
+}
+.statement-block .label { color: inherit; opacity: .7; }
+
+
+/* ------------------------------------------------------------
+   10. SECTION SOLUTION — ASSET CARDS (les 5 actifs)
+   ------------------------------------------------------------ */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--s5);
+  margin-top: var(--s6);
+}
+
+.card {
+  border-top: 2px solid var(--noir);
+  padding-top: var(--s3);
+}
+
+.card .num {
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--orange);
+}
+
+.card .title {
+  font-family: var(--font-display);
+  font-weight: 400;
+  text-transform: uppercase;
+  font-size: clamp(1.5rem, 2.4vw, 2rem);
+  line-height: var(--interligne-titres);
+  margin: var(--s1) 0 var(--s2);
+}
+
+.section--noir .card { border-color: var(--creme); }
+
+
+/* ------------------------------------------------------------
+   11. SECTION MÉTHODE — PHASES + FORMAT
+   ------------------------------------------------------------ */
+.phases {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--s5) var(--s6);
+  margin-top: var(--s6);
+}
+
+.phase { border-top: 1px solid rgba(17,17,17,.25); padding-top: var(--s3); }
+
+.phase .num {
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: .08em;
+  color: var(--cobalt);
+}
+
+.phase .title {
+  font-family: var(--font-display);
+  font-weight: 400;
+  text-transform: uppercase;
+  font-size: clamp(1.5rem, 2.2vw, 1.875rem);
+  margin: var(--s1) 0 var(--s2);
+}
+
+/* Bloc format (12 semaines / sessions / accès) */
+.format {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--s3);
+  margin-top: var(--s6);
+  padding: var(--s5);
+  background: var(--noir);
+  color: var(--creme);
+  border-radius: var(--radius);
+}
+
+.format .format-item .h3 { color: var(--creme); }
+
+
+/* ------------------------------------------------------------
+   12. SECTION PREUVE — HALL OF FAME
+   ------------------------------------------------------------ */
+.preuve .grid { align-items: center; }
+
+.preuve-copy { grid-column: 1 / 7; }
+.preuve-photo-wrap { grid-column: 8 / 13; }
+
+.preuve-photo {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  border-radius: var(--radius);
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--s5) var(--s4);
+  margin-top: var(--s6);
+}
+
+.stat .num {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(2.5rem, 5vw, 4.5rem);
+  line-height: var(--interligne-titres);
+  color: var(--creme);
+}
+
+.stat .stat-label {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  margin-top: var(--s1);
+}
+
+.stat .stat-label a {
+  color: inherit;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(245, 240, 230, .4);
+  transition: color .2s ease, border-color .2s ease;
+}
+
+.stat .stat-label a:hover {
+  color: var(--orange);
+  border-color: var(--orange);
+}
+
+.stat .stat-desc {
+  font-size: 15px;
+  opacity: .75;
+  margin-top: var(--s1);
+}
+
+
+/* ------------------------------------------------------------
+   13. SECTION POUR QUI — 2 LISTES
+   ------------------------------------------------------------ */
+.pour-qui-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--s6);
+  margin-top: var(--s6);
+}
+
+.list-block .list-title {
+  font-family: var(--font-display);
+  font-weight: 400;
+  text-transform: uppercase;
+  font-size: var(--taille-h3);
+  padding-bottom: var(--s2);
+  margin-bottom: var(--s3);
+  border-bottom: 2px solid var(--noir);
+}
+
+.list-block--no .list-title {
+  color: rgba(17,17,17,.5);
+  border-color: rgba(17,17,17,.25);
+}
+
+.list-block li {
+  position: relative;
+  padding-left: var(--s3);
+  margin-bottom: var(--s2);
+}
+
+.list-block li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: .55em;
+  width: 10px;
+  height: 2px;
+  background: var(--cobalt);
+}
+
+.list-block--no li::before { background: rgba(17,17,17,.4); }
+
+
+/* ------------------------------------------------------------
+   14. SECTION OFFRE
+   ------------------------------------------------------------ */
+.offre-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--s6);
+  margin-top: var(--s6);
+}
+
+.offre p + p { margin-top: var(--s2); }
+
+.format-list li {
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  font-size: clamp(1.25rem, 2vw, 1.75rem);
+  line-height: 1.05;
+  padding: var(--s2) 0;
+  border-bottom: 1px solid rgba(17,17,17,.2);
+}
+
+.invest .old-price {
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  font-size: clamp(1.75rem, 3vw, 2.5rem);
+  color: rgba(17,17,17,.4);
+}
+
+.invest .new-price {
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  font-size: clamp(3rem, 7vw, 6rem);
+  line-height: var(--interligne-titres);
+  color: var(--cobalt);
+}
+
+.invest .invest-note {
+  font-size: 15px;
+  opacity: .75;
+  margin-top: var(--s2);
+}
+
+/* Bloc garantie */
+.garantie {
+  margin-top: var(--s6);
+  padding: clamp(32px, 5vw, 64px);
+  border: 2px solid var(--noir);
+  border-radius: var(--radius);
+}
+
+.garantie .h2 { margin-bottom: var(--s4); }
+
+.garantie .promise {
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  font-size: clamp(1.5rem, 3vw, 2.25rem);
+  line-height: 1;
+  color: var(--orange);
+  margin-top: var(--s3);
+}
+
+
+/* ------------------------------------------------------------
+   15. SECTION FAQ (accordéon natif <details>)
+   ------------------------------------------------------------ */
+.faq-item {
+  border-top: 1px solid rgba(17,17,17,.25);
+}
+.faq-item:last-child { border-bottom: 1px solid rgba(17,17,17,.25); }
+
+.faq-item summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--s3);
+  cursor: pointer;
+  list-style: none;
+  padding: var(--s3) 0;
+  font-family: var(--font-display);
+  font-weight: 400;
+  text-transform: uppercase;
+  font-size: clamp(1.125rem, 2vw, 1.5rem);
+  line-height: 1.1;
+}
+
+.faq-item summary::-webkit-details-marker { display: none; }
+
+/* Le + / - à droite */
+.faq-item summary::after {
+  content: "+";
+  font-family: var(--font-body);
+  font-size: 1.5rem;
+  line-height: 1;
+  flex-shrink: 0;
+}
+.faq-item[open] summary::after { content: "–"; }
+
+.faq-answer {
+  padding-bottom: var(--s3);
+  max-width: var(--largeur-texte);
+}
+
+.faq-cta { margin-top: var(--s5); }
+
+
+/* ------------------------------------------------------------
+   16. SECTION FINAL CTA
+   ------------------------------------------------------------ */
+.final { text-align: left; }
+.final .hero-title { margin-bottom: var(--s4); }
+
+.final .final-statement {
+  margin-top: var(--s6);
+  padding-top: var(--s6);
+  border-top: 1px solid rgba(245,240,230,.3);
+}
+
+.final .btn { margin-top: var(--s4); }
+
+.section--cobalt .btn--primary {
+  background: var(--creme);
+  color: var(--noir);
+}
+.section--cobalt .btn--primary:hover {
+  background: var(--orange);
+  color: var(--noir);
+}
+
+.final .annotation { margin-top: var(--s4); }
+
+
+/* ------------------------------------------------------------
+   17. SECTION RDV (Calendly)
+   ------------------------------------------------------------ */
+.rdv { text-align: left; }
+.rdv .h2 { margin-top: var(--s2); }
+.rdv-annotation { margin-bottom: var(--s4); }
+
+/* Cadre autour du calendrier : bordure fine + liseré cobalt */
+.rdv-embed {
+  position: relative;
+  border: 1px solid rgba(17,17,17,.25);
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--creme);
+  box-shadow: 0 24px 60px rgba(17,17,17,.08);
+}
+
+.rdv-embed::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 4px;
+  background: var(--cobalt);
+  z-index: 1;
+}
+
+
+/* ------------------------------------------------------------
+   18. RESPONSIVE
+   ------------------------------------------------------------ */
+@media (max-width: 1024px) {
+
+  .hero-copy   { grid-column: 1 / 13; }
+  .hero-visual { grid-column: 1 / 13; margin-top: var(--s5); }
+
+  /* Sur petit écran : la photo reste verticale et est vue en entier
+     (on garde son ratio naturel, aucun recadrage) */
+  .hero-photo,
+  .preuve-photo {
+    aspect-ratio: auto;
+    height: auto;
+  }
+
+  .preuve-copy       { grid-column: 1 / 13; }
+  .preuve-photo-wrap { grid-column: 1 / 13; margin-top: var(--s5); }
+
+  .cards { grid-template-columns: repeat(2, 1fr); }
+  .stats { grid-template-columns: repeat(2, 1fr); }
+  .format { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 720px) {
+
+  .cards,
+  .phases,
+  .pour-qui-grid,
+  .offre-grid,
+  .stats { grid-template-columns: 1fr; }
+
+  .annotation--tilt { transform: rotate(-1.5deg); }
+
+  /* CTA pleine largeur sur mobile */
+  .hero-cta .btn,
+  .faq-cta .btn,
+  .final .btn {
+    display: block;
+    width: 100%;
+    text-align: center;
+  }
+
+  /* Le calendrier a besoin de plus de hauteur sur petit écran */
+  .rdv-embed .calendly-inline-widget { height: 900px !important; }
+}
