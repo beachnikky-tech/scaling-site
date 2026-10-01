@@ -434,6 +434,72 @@ a { color: inherit; }
 }
 
 
+/* Frise chronologique (section preuve) */
+.timeline {
+  margin-top: var(--s6);
+  max-width: 760px;
+}
+
+.timeline-item {
+  position: relative;
+  padding: 0 0 var(--s5) var(--s5);
+  border-left: 2px solid rgba(245, 240, 230, .25);
+  margin-left: 9px;
+}
+
+.timeline-item:last-child { padding-bottom: 0; }
+
+.timeline-item::before {
+  content: "";
+  position: absolute;
+  left: -9px;
+  top: 4px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--orange);
+}
+
+.timeline-date {
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--orange);
+}
+
+.timeline-title {
+  font-family: var(--font-display);
+  font-weight: 400;
+  text-transform: uppercase;
+  font-size: clamp(1.25rem, 2vw, 1.75rem);
+  line-height: var(--interligne-titres);
+  margin: var(--s1) 0 var(--s2);
+}
+
+.timeline-item p {
+  max-width: 58ch;
+  opacity: .85;
+}
+
+.timeline-closing {
+  margin-top: var(--s5);
+  max-width: 58ch;
+  opacity: .9;
+}
+
+.timeline-outcome {
+  font-family: var(--font-display);
+  font-weight: 400;
+  text-transform: uppercase;
+  line-height: var(--interligne-titres);
+  font-size: clamp(1.75rem, 3.5vw, 3.25rem);
+  margin-top: var(--s6);
+  max-width: 22ch;
+}
+
+
 /* ------------------------------------------------------------
    13. SECTION POUR QUI — 2 LISTES
    ------------------------------------------------------------ */
