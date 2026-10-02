@@ -6,6 +6,9 @@
   <title>Mathilda, ton business doit travailler pour toi</title>
   <meta name="description" content="Le diagnostic personnalisé de ton business. Ce qui marche, ce qui bloque, et les 4 chantiers pour que ça tourne sans toi.">
 
+  <!-- Signale que JS est actif : sans JS, l'étoile reste visible en statique -->
+  <script>document.documentElement.classList.add('js');</script>
+
   <!-- Polices : Anton (titres), Inter (texte), Caveat (annotations) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -141,12 +144,72 @@
         </div>
       </div>
 
+      <div class="radar">
+        <svg class="radar-svg" viewBox="0 0 560 500" role="img" aria-label="Diagramme en étoile des 6 piliers, notes sur 10">
+
+          <!-- Anneaux de la grille -->
+          <polygon class="radar-grid" points="280,195 318.97,217.5 318.97,262.5 280,285 241.03,262.5 241.03,217.5" />
+          <polygon class="radar-grid" points="280,150 357.94,195 357.94,285 280,330 202.06,285 202.06,195" />
+          <polygon class="radar-grid" points="280,105 396.91,172.5 396.91,307.5 280,375 163.09,307.5 163.09,172.5" />
+          <polygon class="radar-grid radar-grid--outer" points="280,60 435.88,150 435.88,330 280,420 124.12,330 124.12,150" />
+
+          <!-- Axes -->
+          <line class="radar-axis" x1="280" y1="240" x2="280" y2="60" />
+          <line class="radar-axis" x1="280" y1="240" x2="435.88" y2="150" />
+          <line class="radar-axis" x1="280" y1="240" x2="435.88" y2="330" />
+          <line class="radar-axis" x1="280" y1="240" x2="280" y2="420" />
+          <line class="radar-axis" x1="280" y1="240" x2="124.12" y2="330" />
+          <line class="radar-axis" x1="280" y1="240" x2="124.12" y2="150" />
+
+          <g class="radar-data">
+            <!-- Forme des notes -->
+            <polygon class="radar-shape" points="280,132 373.53,186 389.12,303 280,384 202.06,285 170.88,177" />
+
+            <!-- Points -->
+            <circle class="radar-dot" cx="280" cy="132" r="5" />
+            <circle class="radar-dot" cx="373.53" cy="186" r="5" />
+            <circle class="radar-dot" cx="389.12" cy="303" r="5" />
+            <circle class="radar-dot" cx="280" cy="384" r="5" />
+            <circle class="radar-dot radar-dot--low" cx="202.06" cy="285" r="5" />
+            <circle class="radar-dot" cx="170.88" cy="177" r="5" />
+          </g>
+
+          <!-- Libellés + notes -->
+          <g text-anchor="middle">
+            <text class="radar-label" x="280" y="30">Génération</text>
+            <text class="radar-score" x="280" y="48">6</text>
+          </g>
+          <g text-anchor="start">
+            <text class="radar-label" x="452" y="138">Relation</text>
+            <text class="radar-score" x="452" y="156">6</text>
+          </g>
+          <g text-anchor="start">
+            <text class="radar-label" x="452" y="328">Conversion</text>
+            <text class="radar-score" x="452" y="346">7</text>
+          </g>
+          <g text-anchor="middle">
+            <text class="radar-label" x="280" y="440">Livraison</text>
+            <text class="radar-score" x="280" y="458">8</text>
+          </g>
+          <g text-anchor="end">
+            <text class="radar-label" x="108" y="328">Rétention</text>
+            <text class="radar-score radar-score--low" x="108" y="346">5</text>
+          </g>
+          <g text-anchor="end">
+            <text class="radar-label" x="108" y="138">Entrepreneur</text>
+            <text class="radar-score" x="108" y="156">7</text>
+          </g>
+
+        </svg>
+        <p class="radar-caption">Tes 6 piliers, notés sur 10.</p>
+      </div>
+
       <div class="pillars">
 
         <div class="pillar">
           <span class="p-num">01</span>
           <span class="p-name">Génération de leads</span>
-          <span class="bar"><span style="width: 60%;"></span></span>
+          <span class="bar"><span style="--w: 60%;"></span></span>
           <span class="p-note">6</span>
           <span class="p-why">Insta solide mais irrégulier (2 mois de pause cet été). Newsletter morte. Pas de lead magnet central.</span>
         </div>
@@ -154,7 +217,7 @@
         <div class="pillar">
           <span class="p-num">02</span>
           <span class="p-name">Relation prospects</span>
-          <span class="bar"><span style="width: 60%;"></span></span>
+          <span class="bar"><span style="--w: 60%;"></span></span>
           <span class="p-note">6</span>
           <span class="p-why">Vrai setting, confiance construite sur 2 à 3 mois. Mais 100 % manuel et chronophage, aucun nourrissage email automatisé.</span>
         </div>
@@ -162,7 +225,7 @@
         <div class="pillar">
           <span class="p-num">03</span>
           <span class="p-name">Conversion</span>
-          <span class="bar"><span style="width: 70%;"></span></span>
+          <span class="bar"><span style="--w: 70%;"></span></span>
           <span class="p-note">7</span>
           <span class="p-why">70 % post-R2, lancement à 18k, 49 élèves. Mais tout repose sur des appels manuels et zéro donnée récente.</span>
         </div>
@@ -170,7 +233,7 @@
         <div class="pillar">
           <span class="p-num">04</span>
           <span class="p-name">Livraison</span>
-          <span class="bar"><span style="width: 80%;"></span></span>
+          <span class="bar"><span style="--w: 80%;"></span></span>
           <span class="p-note">8</span>
           <span class="p-why">Zéro remboursement, satisfaction forte, rythme maîtrisé. C'est ton point fort.</span>
         </div>
@@ -178,7 +241,7 @@
         <div class="pillar pillar--low">
           <span class="p-num">05</span>
           <span class="p-name">Rétention / upsell</span>
-          <span class="bar"><span style="width: 50%;"></span></span>
+          <span class="bar"><span style="--w: 50%;"></span></span>
           <span class="p-note">5</span>
           <span class="p-why">La formation flash est réclamée par tes élèves mais jamais sortie. Pas de backend structuré.</span>
         </div>
@@ -186,7 +249,7 @@
         <div class="pillar">
           <span class="p-num">06</span>
           <span class="p-name">Entrepreneur</span>
-          <span class="bar"><span style="width: 70%;"></span></span>
+          <span class="bar"><span style="--w: 70%;"></span></span>
           <span class="p-note">7</span>
           <span class="p-why">Motivation et vision très claires. Frein assumé : la désorganisation et l'absence de focus.</span>
         </div>
@@ -343,6 +406,27 @@
     </div>
   </section>
 
+
+  <!-- Déclenche les animations (étoile + barres) à l'entrée dans le viewport -->
+  <script>
+    (function () {
+      var targets = document.querySelectorAll('.radar-svg, .pillars');
+      if (!targets.length) return;
+      if (!('IntersectionObserver' in window)) {
+        Array.prototype.forEach.call(targets, function (t) { t.classList.add('is-visible'); });
+        return;
+      }
+      var observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.35 });
+      Array.prototype.forEach.call(targets, function (t) { observer.observe(t); });
+    })();
+  </script>
 
 </body>
 </html>

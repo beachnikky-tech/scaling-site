@@ -56,13 +56,101 @@
 
 
 /* ------------------------------------------------------------
-   3. CHANTIERS (grille 2x2)
+   3. RADAR (diagramme en étoile des 6 piliers)
+   ------------------------------------------------------------ */
+.radar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: var(--s6);
+}
+
+.radar-svg {
+  width: 100%;
+  max-width: 560px;
+  height: auto;
+}
+
+.radar-grid {
+  fill: none;
+  stroke: rgba(17, 17, 17, .15);
+  stroke-width: 1;
+}
+
+.radar-grid--outer { stroke: rgba(17, 17, 17, .3); }
+
+.radar-axis { stroke: rgba(17, 17, 17, .12); stroke-width: 1; }
+
+.radar-shape {
+  fill: rgba(49, 85, 255, .14);
+  stroke: var(--cobalt);
+  stroke-width: 2;
+  stroke-linejoin: round;
+}
+
+.radar-dot { fill: var(--cobalt); }
+.radar-dot--low { fill: var(--orange); }
+
+.radar-label {
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  fill: var(--noir);
+}
+
+.radar-score {
+  font-family: var(--font-display);
+  font-size: 17px;
+  fill: var(--cobalt);
+}
+
+.radar-score--low { fill: var(--orange); }
+
+.radar-caption {
+  margin-top: var(--s3);
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  opacity: .6;
+}
+
+/* Animation : l'étoile se déploie depuis le centre à l'entrée dans le viewport.
+   Sans JS (pas de classe .js sur <html>), elle reste visible en statique. */
+.js .radar-data {
+  transform-box: view-box;
+  transform-origin: 280px 240px;
+  transform: scale(0);
+  opacity: 0;
+}
+
+.js .radar-svg.is-visible .radar-data {
+  animation: radar-bloom .9s cubic-bezier(.2, .7, .2, 1) forwards;
+}
+
+@keyframes radar-bloom {
+  from { transform: scale(0); opacity: 0; }
+  to   { transform: scale(1); opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .js .radar-data { transform: none; opacity: 1; }
+  .js .radar-svg.is-visible .radar-data { animation: none; }
+  .js .pillar .bar span { width: var(--w); }
+  .js .pillars.is-visible .pillar .bar span { animation: none; }
+}
+
+
+/* ------------------------------------------------------------
+   4. CHANTIERS (grille 2x2)
    ------------------------------------------------------------ */
 .cards--2 { grid-template-columns: repeat(2, 1fr); }
 
 
 /* ------------------------------------------------------------
-   4. DIAGNOSTIC EN PILIERS
+   5. DIAGNOSTIC EN PILIERS
    ------------------------------------------------------------ */
 .pillars {
   margin-top: var(--s6);
@@ -102,11 +190,31 @@
 .pillar .bar span {
   display: block;
   height: 100%;
+  width: var(--w);
   background: var(--cobalt);
 }
 
 /* Le pilier le plus faible ressort en orange */
 .pillar--low .bar span { background: var(--orange); }
+
+/* Animation : les barres se remplissent à l'entrée dans le viewport,
+   avec un léger décalage de haut en bas. Sans JS, elles restent pleines. */
+.js .pillar .bar span { width: 0; }
+
+.js .pillars.is-visible .pillar .bar span {
+  animation: bar-grow .9s cubic-bezier(.2, .7, .2, 1) forwards;
+}
+
+.js .pillars.is-visible .pillar:nth-child(2) .bar span { animation-delay: .08s; }
+.js .pillars.is-visible .pillar:nth-child(3) .bar span { animation-delay: .16s; }
+.js .pillars.is-visible .pillar:nth-child(4) .bar span { animation-delay: .24s; }
+.js .pillars.is-visible .pillar:nth-child(5) .bar span { animation-delay: .32s; }
+.js .pillars.is-visible .pillar:nth-child(6) .bar span { animation-delay: .40s; }
+
+@keyframes bar-grow {
+  from { width: 0; }
+  to   { width: var(--w); }
+}
 
 .pillar .p-note {
   font-family: var(--font-display);
@@ -129,7 +237,7 @@
 
 
 /* ------------------------------------------------------------
-   5. RESPONSIVE
+   6. RESPONSIVE
    ------------------------------------------------------------ */
 @media (max-width: 900px) {
   .proof-grid { grid-template-columns: repeat(2, 1fr); }
@@ -139,6 +247,10 @@
   .proof-grid { grid-template-columns: 1fr; }
 
   .cards--2 { grid-template-columns: 1fr; }
+
+  /* Le radar garde une taille lisible, avec défilement horizontal */
+  .radar { overflow-x: auto; }
+  .radar-svg { min-width: 480px; }
 
   .pillar {
     grid-template-columns: 32px 1fr 56px;
