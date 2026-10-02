@@ -1,0 +1,157 @@
+/* ============================================================
+   FOCUS LIBERTÉ — PAGE DIAGNOSTIC PERSONNALISÉ (MATHILDA)
+   ------------------------------------------------------------
+   Ce fichier complète "focus-liberte.css" (le design system).
+   Il ne définit que les composants propres à cette page :
+   le hero texte seul, le bloc preuves clair et le diagnostic
+   en piliers. Toutes les variables viennent du design system.
+   ============================================================ */
+
+
+/* ------------------------------------------------------------
+   1. HERO TEXTE SEUL
+   ------------------------------------------------------------ */
+.hero--text .hero-title { max-width: 18ch; }
+.hero--text .hero-body { max-width: 620px; }
+
+
+/* ------------------------------------------------------------
+   2. PROOF GRID (version fond clair, contrairement à .stats)
+   ------------------------------------------------------------ */
+.proof-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--s5) var(--s4);
+  margin-top: var(--s6);
+}
+
+.proof {
+  border-top: 2px solid var(--noir);
+  padding-top: var(--s3);
+}
+
+.proof .num {
+  font-family: var(--font-display);
+  font-weight: 400;
+  text-transform: uppercase;
+  font-size: clamp(2.25rem, 4.5vw, 4rem);
+  line-height: var(--interligne-titres);
+  color: var(--noir);
+}
+
+.proof .proof-label {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  margin-top: var(--s1);
+}
+
+.proof .proof-desc {
+  font-size: 15px;
+  opacity: .7;
+  margin-top: var(--s1);
+}
+
+
+/* ------------------------------------------------------------
+   3. CHANTIERS (grille 2x2)
+   ------------------------------------------------------------ */
+.cards--2 { grid-template-columns: repeat(2, 1fr); }
+
+
+/* ------------------------------------------------------------
+   4. DIAGNOSTIC EN PILIERS
+   ------------------------------------------------------------ */
+.pillars {
+  margin-top: var(--s6);
+  border-top: 1px solid rgba(17, 17, 17, .25);
+}
+
+.pillar {
+  display: grid;
+  grid-template-columns: 44px minmax(160px, 1.3fr) minmax(120px, 2fr) 72px;
+  align-items: center;
+  gap: var(--s3);
+  padding: var(--s3) 0;
+  border-bottom: 1px solid rgba(17, 17, 17, .25);
+}
+
+.pillar .p-num {
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: .08em;
+  color: var(--cobalt);
+}
+
+.pillar .p-name {
+  font-family: var(--font-display);
+  font-weight: 400;
+  text-transform: uppercase;
+  font-size: clamp(1.125rem, 1.8vw, 1.5rem);
+  line-height: 1.05;
+}
+
+.pillar .bar {
+  height: 6px;
+  background: rgba(17, 17, 17, .12);
+}
+
+.pillar .bar span {
+  display: block;
+  height: 100%;
+  background: var(--cobalt);
+}
+
+/* Le pilier le plus faible ressort en orange */
+.pillar--low .bar span { background: var(--orange); }
+
+.pillar .p-note {
+  font-family: var(--font-display);
+  font-weight: 400;
+  text-transform: uppercase;
+  font-size: clamp(1.5rem, 2.5vw, 2rem);
+  line-height: 1;
+  text-align: right;
+}
+
+.pillar--low .p-note { color: var(--orange); }
+
+.pillar .p-why {
+  grid-column: 2 / 5;
+  font-size: 15px;
+  line-height: 1.5;
+  opacity: .75;
+  margin-top: calc(var(--s1) * -1);
+}
+
+
+/* ------------------------------------------------------------
+   5. RESPONSIVE
+   ------------------------------------------------------------ */
+@media (max-width: 900px) {
+  .proof-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 720px) {
+  .proof-grid { grid-template-columns: 1fr; }
+
+  .cards--2 { grid-template-columns: 1fr; }
+
+  .pillar {
+    grid-template-columns: 32px 1fr 56px;
+    align-items: end;
+  }
+
+  .pillar .bar {
+    grid-column: 1 / -1;
+    margin-top: var(--s1);
+  }
+
+  .pillar .p-why {
+    grid-column: 1 / -1;
+    margin-top: 0;
+  }
+}
