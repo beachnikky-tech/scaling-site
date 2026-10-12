@@ -1,10 +1,12 @@
 /* ============================================================
-   FOCUS LIBERTÉ — PAGE DIAGNOSTIC PERSONNALISÉ (MATHILDA)
+   FOCUS LIBERTÉ — PAGE DIAGNOSTIC (composants génériques)
    ------------------------------------------------------------
    Ce fichier complète "focus-liberte.css" (le design system).
-   Il ne définit que les composants propres à cette page :
-   le hero texte seul, le bloc preuves clair et le diagnostic
-   en piliers. Toutes les variables viennent du design system.
+   Il définit les composants communs à TOUTES les pages diag :
+   hero texte seul, bloc preuves clair, radar des 6 piliers,
+   piliers en barres, plan flouté, animations.
+
+   Les couleurs, polices et tailles viennent de focus-liberte.css.
    ============================================================ */
 
 
@@ -67,7 +69,7 @@
 
 .radar-svg {
   width: 100%;
-  max-width: 560px;
+  max-width: 640px;
   height: auto;
 }
 
@@ -121,7 +123,7 @@
    Sans JS (pas de classe .js sur <html>), elle reste visible en statique. */
 .js .radar-data {
   transform-box: view-box;
-  transform-origin: 280px 240px;
+  transform-origin: 320px 255px;
   transform: scale(0);
   opacity: 0;
 }
@@ -135,22 +137,66 @@
   to   { transform: scale(1); opacity: 1; }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .js .radar-data { transform: none; opacity: 1; }
-  .js .radar-svg.is-visible .radar-data { animation: none; }
-  .js .pillar .bar span { width: var(--w); }
-  .js .pillars.is-visible .pillar .bar span { animation: none; }
-}
-
 
 /* ------------------------------------------------------------
-   4. CHANTIERS (grille 2x2)
+   4. GRILLE 2 COLONNES (cartes du plan)
    ------------------------------------------------------------ */
 .cards--2 { grid-template-columns: repeat(2, 1fr); }
 
 
 /* ------------------------------------------------------------
-   5. DIAGNOSTIC EN PILIERS
+   5. PLAN DES 90 JOURS (flouté, non réversible)
+   ------------------------------------------------------------
+   Le plan réel n'est JAMAIS écrit dans le HTML : derrière le flou
+   ce ne sont que des faux textes. Personne ne peut le "révéler"
+   en inspectant le code. Il se découvre à l'appel. */
+.plan {
+  position: relative;
+  margin-top: var(--s6);
+}
+
+.plan-cards {
+  filter: blur(13px);
+  opacity: .5;
+  pointer-events: none;
+  user-select: none;
+}
+
+.plan-reveal {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--s4);
+  padding: var(--s4);
+  text-align: center;
+}
+
+.plan-reveal-text {
+  font-family: var(--font-display);
+  font-weight: 400;
+  text-transform: uppercase;
+  font-size: clamp(1.75rem, 4vw, 3rem);
+  line-height: var(--interligne-titres);
+  max-width: 22ch;
+}
+
+.section--noir .plan-reveal-text { color: var(--creme); }
+
+.plan-reveal-sub {
+  font-family: var(--font-body);
+  font-size: clamp(1rem, 1.4vw, 1.25rem);
+  font-weight: 600;
+  line-height: 1.4;
+  letter-spacing: .02em;
+  max-width: 46ch;
+}
+
+
+/* ------------------------------------------------------------
+   6. DIAGNOSTIC EN PILIERS
    ------------------------------------------------------------ */
 .pillars {
   margin-top: var(--s6);
@@ -237,7 +283,18 @@
 
 
 /* ------------------------------------------------------------
-   6. RESPONSIVE
+   7. ACCESSIBILITÉ / MOUVEMENT RÉDUIT
+   ------------------------------------------------------------ */
+@media (prefers-reduced-motion: reduce) {
+  .js .radar-data { transform: none; opacity: 1; }
+  .js .radar-svg.is-visible .radar-data { animation: none; }
+  .js .pillar .bar span { width: var(--w); }
+  .js .pillars.is-visible .pillar .bar span { animation: none; }
+}
+
+
+/* ------------------------------------------------------------
+   8. RESPONSIVE
    ------------------------------------------------------------ */
 @media (max-width: 900px) {
   .proof-grid { grid-template-columns: repeat(2, 1fr); }
