@@ -183,6 +183,17 @@
   max-width: 22ch;
 }
 
+.plan-lock {
+  display: inline-flex;
+  color: inherit;
+  opacity: .85;
+}
+
+.plan-lock svg {
+  width: clamp(26px, 3vw, 36px);
+  height: auto;
+}
+
 .section--noir .plan-reveal-text { color: var(--creme); }
 
 .plan-reveal-sub {
